@@ -3,81 +3,472 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hadiah untuk Kamu</title>
+    <title>Season Depan Pasti Immortal!</title>
     <style>
-        body {
-            background-color: #fce4ec;
-            font-family: Arial, sans-serif;
-            text-align: center;
-            color: #d81b60;
+        * {
             margin: 0;
             padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: 
+                radial-gradient(circle at 20% 80%, #120458 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, #421a7a 0%, transparent 50%),
+                radial-gradient(circle at 40% 40%, #8b1538 0%, transparent 50%),
+                linear-gradient(135deg, #0c0c0c 0%, #1a1a2e 50%, #16213e 100%);
+            font-family: 'Arial Black', Arial, sans-serif;
+            text-align: center;
+            color: #ffffff;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 50% 50%, rgba(255, 215, 0, 0.1) 0%, transparent 70%),
+                repeating-linear-gradient(
+                    0deg,
+                    transparent,
+                    transparent 2px,
+                    rgba(255, 215, 0, 0.03) 2px,
+                    rgba(255, 215, 0, 0.03) 4px
+                );
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .container {
+            max-width: 900px;
+            width: 90%;
+            padding: 20px;
+            position: relative;
+            z-index: 2;
         }
 
         h1 {
-            margin-top: 50px;
-            font-size: 3em;
+            font-size: clamp(2.5rem, 6vw, 5rem);
+            margin-bottom: 20px;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            background: linear-gradient(45deg, #ffd700, #ffed4e, #ffd700, #ff6b35);
+            background-size: 400% 400%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: gradientShift 3s ease-in-out infinite, textGlow 2s ease-in-out infinite alternate;
+            text-shadow: 0 0 30px rgba(255, 215, 0, 0.5);
+            position: relative;
         }
 
-        p {
-            font-size: 1.5em;
-            margin: 20px 0;
+        h1::before {
+            content: attr(data-text);
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, #ff6b35, #f7931e);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            z-index: -1;
+            transform: translate(2px, 2px);
+            opacity: 0.7;
         }
 
-        .gift-box {
-            margin: 30px auto;
-            width: 200px;
-            height: 200px;
-            background-color: #f8bbd0;
-            border-radius: 20px;
+        @keyframes gradientShift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        @keyframes textGlow {
+            from {
+                text-shadow: 
+                    0 0 20px rgba(255, 215, 0, 0.8),
+                    0 0 30px rgba(255, 215, 0, 0.6),
+                    0 0 40px rgba(255, 215, 0, 0.4);
+            }
+            to {
+                text-shadow: 
+                    0 0 30px rgba(255, 215, 0, 1),
+                    0 0 40px rgba(255, 215, 0, 0.8),
+                    0 0 50px rgba(255, 215, 0, 0.6),
+                    0 0 60px rgba(255, 107, 53, 0.4);
+            }
+        }
+
+        .subtitle {
+            font-size: clamp(1.2rem, 3.5vw, 2rem);
+            margin-bottom: 50px;
+            font-weight: bold;
+            color: #ffd700;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+            animation: pulse 3s ease-in-out infinite;
+        }
+
+        .immortal-container {
+            margin: 50px auto;
+            position: relative;
+            width: clamp(50px, 60vw, 400px);
+            height: clamp(250px, 60vw, 400px);
+        }
+
+        .rank-box {
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 30% 30%, rgba(255, 215, 0, 0.3) 0%, transparent 50%),
+                radial-gradient(circle at 70% 70%, rgba(138, 43, 226, 0.3) 0%, transparent 50%),
+                linear-gradient(145deg, rgba(25, 25, 25, 0.9), rgba(50, 50, 50, 0.7));
+            border-radius: 30px;
             display: flex;
+            flex-direction: column;
             align-items: center;
             justify-content: center;
-            box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+            box-shadow: 
+                0 0 50px rgba(255, 215, 0, 0.3),
+                0 20px 40px rgba(0, 0, 0, 0.5),
+                inset 0 1px 0 rgba(255, 255, 255, 0.1),
+                inset 0 -1px 0 rgba(0, 0, 0, 0.5);
             cursor: pointer;
-            transition: transform 0.3s ease;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            overflow: hidden;
+            border: 2px solid transparent;
+            background-clip: padding-box;
         }
 
-        .gift-box:hover {
+        .rank-box::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(45deg, #ffd700, #ff6b35, #8a2be2, #ffd700);
+            background-size: 400% 400%;
+            border-radius: 32px;
+            z-index: -1;
+            animation: borderGlow 3s ease-in-out infinite;
+        }
+
+        @keyframes borderGlow {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        .rank-box::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .rank-box:hover {
+            transform: scale(1.08) rotateY(5deg);
+            box-shadow: 
+                0 0 80px rgba(255, 215, 0, 0.6),
+                0 30px 60px rgba(0, 0, 0, 0.7),
+                inset 0 1px 0 rgba(255, 255, 255, 0.2);
+        }
+
+        .rank-box:hover::after {
+            left: 100%;
+        }
+
+        .immortal-image {
+            width: clamp(120px, 30vw, 200px);
+            height: clamp(120px, 30vw, 200px);
+            object-fit: contain;
+            filter: drop-shadow(0 0 20px rgba(255, 215, 0, 0.8));
+            animation: floatRotate 4s ease-in-out infinite;
+            transition: all 0.3s ease;
+        }
+
+        .rank-box:hover .immortal-image {
+            filter: 
+                drop-shadow(0 0 30px rgba(255, 215, 0, 1))
+                drop-shadow(0 0 40px rgba(138, 43, 226, 0.8));
             transform: scale(1.1);
         }
 
-        .gift-box img {
-            width: 100px;
-            height: 100px;
+        @keyframes floatRotate {
+            0%, 100% { 
+                transform: translateY(0px) rotate(0deg);
+            }
+            25% { 
+                transform: translateY(-10px) rotate(2deg);
+            }
+            50% { 
+                transform: translateY(0px) rotate(0deg);
+            }
+            75% { 
+                transform: translateY(-5px) rotate(-2deg);
+            }
+        }
+
+        .rank-text {
+            font-size: clamp(1rem, 3vw, 1.5rem);
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-top: 20px;
+            background: linear-gradient(45deg, #ffd700, #ffed4e);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            animation: textPulse 2s ease-in-out infinite;
+        }
+
+        @keyframes textPulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.8; }
         }
 
         .message {
             display: none;
-            font-size: 1.5em;
-            color: #880e4f;
-            margin-top: 30px;
-            animation: fadeIn 2s ease-in-out;
+            font-size: clamp(1.5rem, 4vw, 2.5rem);
+            font-weight: 900;
+            color: #ffd700;
+            margin-top: 40px;
+            padding: 30px;
+            background: 
+                radial-gradient(circle at center, rgba(255, 215, 0, 0.1) 0%, transparent 70%),
+                linear-gradient(145deg, rgba(0, 0, 0, 0.8), rgba(25, 25, 25, 0.9));
+            border-radius: 20px;
+            border: 3px solid #ffd700;
+            box-shadow: 
+                0 0 40px rgba(255, 215, 0, 0.5),
+                inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            animation: epicReveal 1.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+            text-transform: uppercase;
+            letter-spacing: 2px;
         }
 
-        @keyframes fadeIn {
-            from {opacity: 0;}
-            to {opacity: 1;}
+        @keyframes epicReveal {
+            0% {
+                opacity: 0;
+                transform: scale(0.3) rotateX(90deg);
+            }
+            50% {
+                opacity: 0.8;
+                transform: scale(1.1) rotateX(0deg);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1) rotateX(0deg);
+            }
+        }
+
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .particle {
+            position: absolute;
+            width: 6px;
+            height: 6px;
+            background: radial-gradient(circle, #ffd700, #ff6b35);
+            border-radius: 50%;
+            box-shadow: 0 0 10px rgba(255, 215, 0, 0.8);
+            animation: epicFloat 8s linear infinite;
+        }
+
+        @keyframes epicFloat {
+            0% {
+                transform: translateY(100vh) rotate(0deg) scale(0);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+                transform: translateY(90vh) rotate(36deg) scale(1);
+            }
+            90% {
+                opacity: 1;
+                transform: translateY(-10vh) rotate(324deg) scale(1);
+            }
+            100% {
+                transform: translateY(-20vh) rotate(360deg) scale(0);
+                opacity: 0;
+            }
+        }
+
+        .footer {
+            margin-top: 50px;
+            font-size: clamp(1rem, 2.5vw, 1.3rem);
+            font-weight: bold;
+            color: #ffd700;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
+        }
+
+        /* Mobile optimizations */
+        @media (max-width: 768px) {
+            .container {
+                width: 95%;
+                padding: 15px;
+            }
+            
+            .immortal-container {
+                margin: 40px auto;
+            }
+            
+            .message {
+                margin-top: 30px;
+                padding: 20px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            body {
+                padding: 10px;
+            }
+            
+            .subtitle {
+                margin-bottom: 40px;
+            }
+            
+            .immortal-container {
+                margin: 30px auto;
+            }
         }
     </style>
 </head>
 <body>
-    <h1>For you</h1>
-    <p>Maaf kalo simpel</p>
+    <div class="particles" id="particles"></div>
+    
+    <div class="container">
+        <h1 data-text="Season Depan Pasti Immortal!">Season Depan Pasti Immortal!</h1>
+        <p class="subtitle">Siap-siap push rank bareng squad! 🔥</p>
 
-    <div class="gift-box" onclick="revealMessage()">
-        <img src="download (1).png" alt="Gift">
-    </div>
+        <div class="immortal-container">
+            <div class="rank-box" onclick="revealMessage()">
+                <img src="immortall.png" alt="Immortal Rank" class="immortal-image">
+                <div class="rank-text">CLICK IF YOU WANT IMMO!</div>
+            </div>
+        </div>
 
-    <div class="message" id="message">
-        <p>INFOKAN PUSH GLORY? 😱</p>
+        <div class="message" id="message">
+            <p>GASKEUN PUSH IMMMO BARENG! 🚀</p>
+            <p style="font-size: 0.7em; margin-top: 15px; font-weight: normal;">Immortal or nothing! 💪⚔️</p>
+        </div>
+
+        <div class="footer">
+            <p>Ga Mabar Murtad</p>
+        </div>
     </div>
 
     <script>
         function revealMessage() {
             var message = document.getElementById("message");
             message.style.display = "block";
+            
+            // Epic celebration effect
+            createEpicFireworks();
+            
+            // Screen shake effect
+            document.body.style.animation = "shake 0.5s ease-in-out";
+            setTimeout(() => {
+                document.body.style.animation = "";
+            }, 500);
         }
+
+        function createEpicFireworks() {
+            for (let i = 0; i < 50; i++) {
+                setTimeout(() => {
+                    createEpicParticle();
+                }, i * 50);
+            }
+        }
+
+        function createEpicParticle() {
+            const particle = document.createElement('div');
+            particle.className = 'particle';
+            particle.style.left = Math.random() * 100 + '%';
+            particle.style.animationDelay = Math.random() * 2 + 's';
+            particle.style.animationDuration = (Math.random() * 4 + 4) + 's';
+            
+            // Random colors for epic effect
+            const colors = ['#ffd700', '#ff6b35', '#8a2be2', '#00ff88'];
+            const color = colors[Math.floor(Math.random() * colors.length)];
+            particle.style.background = `radial-gradient(circle, ${color}, ${color}88)`;
+            particle.style.boxShadow = `0 0 15px ${color}`;
+            
+            document.getElementById('particles').appendChild(particle);
+            
+            setTimeout(() => {
+                particle.remove();
+            }, 8000);
+        }
+
+        // Initialize epic particles
+        function initEpicParticles() {
+            for (let i = 0; i < 15; i++) {
+                setTimeout(() => {
+                    createEpicParticle();
+                }, i * 800);
+            }
+        }
+
+        // Add shake animation
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes shake {
+                0%, 100% { transform: translateX(0); }
+                25% { transform: translateX(-5px); }
+                75% { transform: translateX(5px); }
+            }
+        `;
+        document.head.appendChild(style);
+
+        // Initialize when page loads
+        window.addEventListener('load', () => {
+            initEpicParticles();
+            
+            // Continue creating particles
+            setInterval(() => {
+                if (Math.random() > 0.6) {
+                    createEpicParticle();
+                }
+            }, 1500);
+        });
+
+        // Keyboard support
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Enter' || event.key === ' ') {
+                const rankBox = document.querySelector('.rank-box');
+                if (document.activeElement === rankBox) {
+                    revealMessage();
+                }
+            }
+        });
+
+        // Make rank box focusable
+        document.querySelector('.rank-box').setAttribute('tabindex', '0');
     </script>
 </body>
 </html>
